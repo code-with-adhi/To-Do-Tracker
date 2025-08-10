@@ -1,5 +1,3 @@
-// src/pages/LoginPage.jsx
-
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
@@ -19,14 +17,12 @@ function LoginPage() {
     try {
       const response = await axios.post("/api/login", { email, password });
 
-      // Save the userId to local storage for future API calls.
       localStorage.setItem("userId", response.data.userId);
+      localStorage.setItem("username", response.data.username);
 
-      // Redirect the user to the main to-do list page.
       navigate("/");
     } catch (err) {
       console.error("Login error:", err);
-      // Display the error message from the API or a default one.
       setError(
         err.response?.data?.message ||
           "Failed to log in. Please check your credentials."

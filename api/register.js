@@ -6,12 +6,12 @@ export default async function handler(req, res) {
     return res.status(405).json({ message: "Method Not Allowed" });
   }
 
-  const { email, password } = req.body;
+  const { email, password, username } = req.body;
 
-  if (!email || !password) {
+  if (!email || !password || !username) {
     return res
       .status(400)
-      .json({ message: "Email and password are required." });
+      .json({ message: "Email, password, and username are required." });
   }
 
   let connection;
@@ -27,8 +27,13 @@ export default async function handler(req, res) {
     const saltRounds = 10;
     const passwordHash = await bcrypt.hash(password, saltRounds);
 
-    const query = "INSERT INTO users (email, password_hash) VALUES (?, ?)";
-    const [result] = await connection.execute(query, [email, passwordHash]);
+    const query =
+      "INSERT INTO users (email, password_hash, username) VALUES (?, ?, ?)";
+    const [result] = await connection.execute(query, [
+      email,
+      passwordHash,
+      username,
+    ]);
 
     res.status(201).json({
       message: "User registered successfully!",

@@ -1,5 +1,3 @@
-// src/App.jsx
-
 import React, { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
@@ -15,13 +13,16 @@ import TodoListPage from "./pages/TodoListPage";
 
 function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState("");
   const navigate = useNavigate();
-  const location = useLocation(); // Get the current URL path
+  const location = useLocation();
 
   useEffect(() => {
     const checkAuth = () => {
       const userId = localStorage.getItem("userId");
+      const storedUsername = localStorage.getItem("username");
       setIsLoggedIn(!!userId);
+      setUsername(storedUsername || "");
     };
 
     checkAuth();
@@ -30,11 +31,13 @@ function Header() {
     return () => {
       window.removeEventListener("storage", checkAuth);
     };
-  }, []);
+  }, [location.pathname]); // Add location.pathname to re-run on route change
 
   const handleLogout = () => {
     localStorage.removeItem("userId");
+    localStorage.removeItem("username");
     setIsLoggedIn(false);
+    setUsername("");
     navigate("/login");
   };
 
@@ -46,9 +49,12 @@ function Header() {
       <h1>My To-Do App</h1>
       <nav>
         {isLoggedIn ? (
-          <button onClick={handleLogout} className="logout-button">
-            Log Out
-          </button>
+          <>
+            <span className="user-greeting">Welcome, {username}!</span>
+            <button onClick={handleLogout} className="logout-button">
+              Log Out
+            </button>
+          </>
         ) : (
           <>
             {isLoginPage && <Link to="/signup">Signup</Link>}

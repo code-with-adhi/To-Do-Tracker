@@ -25,7 +25,7 @@ export default async function handler(req, res) {
     });
 
     const [rows] = await connection.execute(
-      "SELECT id, password_hash FROM users WHERE email = ?",
+      "SELECT id, password_hash, username FROM users WHERE email = ?",
       [email]
     );
 
@@ -44,6 +44,7 @@ export default async function handler(req, res) {
     res.status(200).json({
       message: "Login successful!",
       userId: user.id,
+      username: user.username, // Now sending the username
     });
   } catch (error) {
     console.error("Error during login:", error);
