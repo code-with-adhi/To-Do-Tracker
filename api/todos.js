@@ -35,7 +35,6 @@ export default async function handler(req, res) {
         if (!task) {
           return res.status(400).json({ message: "Task is required." });
         }
-        // Correctly handle the deadline. If it's an empty string, set it to NULL.
         const deadlineValue = deadline || null;
 
         await connection.execute(
@@ -49,15 +48,13 @@ export default async function handler(req, res) {
 
       // --- UPDATE: Update an existing todo ---
       case "PUT":
-        const { id, updatedTask, completed, newDeadline } = req.body;
+        const { id, updatedTask, completed } = req.body;
         if (!id) {
           return res.status(400).json({ message: "Todo ID is required." });
         }
-        // Correctly handle the deadline. If it's an empty string, set it to NULL.
-        const updatedDeadlineValue = newDeadline || null;
         await connection.execute(
-          "UPDATE todos SET task = ?, completed = ?, deadline = ? WHERE id = ? AND user_id = ?",
-          [updatedTask, completed, updatedDeadlineValue, id, userId]
+          "UPDATE todos SET task = ?, completed = ? WHERE id = ? AND user_id = ?",
+          [updatedTask, completed, id, userId]
         );
         res.status(200).json({ message: "Todo updated successfully!" });
         break;

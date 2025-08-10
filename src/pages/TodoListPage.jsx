@@ -3,16 +3,18 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import CountdownTimer from "../components/CountdownTimer";
 
 function TodoListPage() {
   const [todos, setTodos] = useState([]);
   const [newTask, setNewTask] = useState("");
   const [newDeadline, setNewDeadline] = useState("");
-  const [newDueHour12, setNewDueHour12] = useState("12"); // State for 12-hour format
+  const [newDueHour, setNewDueHour] = useState("12");
   const [newDueMinute, setNewDueMinute] = useState("00");
   const [newDueAmPm, setNewDueAmPm] = useState("AM");
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [showCompleted, setShowCompleted] = useState(false);
   const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
 
@@ -48,7 +50,7 @@ function TodoListPage() {
     try {
       let deadlineValue = null;
       if (newDeadline) {
-        let hour24 = parseInt(newDueHour12, 10);
+        let hour24 = parseInt(newDueHour, 10);
         if (newDueAmPm === "PM" && hour24 !== 12) {
           hour24 += 12;
         } else if (newDueAmPm === "AM" && hour24 === 12) {
@@ -65,9 +67,10 @@ function TodoListPage() {
       });
       setNewTask("");
       setNewDeadline("");
-      setNewDueHour12("12");
+      setNewDueHour("12");
       setNewDueMinute("00");
       setNewDueAmPm("AM");
+
       const response = await axios.get(`/api/todos?userId=${userId}`);
       setTodos(response.data);
       setErrorMessage(null);
@@ -120,6 +123,9 @@ function TodoListPage() {
   const minutes = Array.from({ length: 60 }, (_, i) => formatTime(i));
   const ampm = ["AM", "PM"];
 
+  const activeTasks = todos.filter((todo) => !todo.completed);
+  const completedTasks = todos.filter((todo) => todo.completed);
+
   return (
     <div className="todo-list-container">
       <h2>Your To-Do List</h2>
@@ -140,8 +146,8 @@ function TodoListPage() {
           title="Set a deadline date"
         />
         <select
-          value={newDueHour12}
-          onChange={(e) => setNewDueHour12(e.target.value)}
+          value={newDueHour}
+          onChange={(e) => setNewDueHour(e.target.value)}
           className="time-select"
           title="Set due hour"
         >
@@ -183,46 +189,102 @@ function TodoListPage() {
 
       {errorMessage && <p className="error-message popup">{errorMessage}</p>}
 
-      <ul className="todo-list">
-        {todos.map((todo) => (
-          <li
-            key={todo.id}
-            className={`todo-item ${todo.completed ? "completed" : ""}`}
-          >
-            <div>
-              <span>{todo.task}</span>
-              {todo.deadline && (
-                <span className="deadline">
-                  (Due:{" "}
-                  {new Date(todo.deadline).toLocaleString("en-IN", {
-                    year: "numeric",
-                    month: "numeric",
-                    day: "numeric",
-                    hour: "numeric",
-                    minute: "numeric",
-                    hour12: true,
-                  })}
-                  )
-                </span>
-              )}
-            </div>
-            <div className="todo-actions">
-              <button
-                onClick={() => handleToggleComplete(todo.id, todo.completed)}
-                className="toggle-complete-button"
-              >
-                {todo.completed ? "Undo" : "Complete"}
-              </button>
-              <button
-                onClick={() => handleDeleteTodo(todo.id)}
-                className="delete-button"
-              >
-                Delete
-              </button>
-            </div>
-          </li>
-        ))}
-      </ul>
+      <div className="tasks-section">
+        <h3>Active Tasks</h3>
+        {activeTasks.length > 0 ? (
+          <ul className="todo-list">
+            {activeTasks.map((todo) => (
+              <li key={todo.id} className="todo-item">
+                <div>
+                  <span>{todo.task}</span>
+                  {todo.deadline && (
+                    <div className="deadline-details">
+                      <span className="deadline">
+                        (Due:{" "}
+                        {new Date(todo.deadline).toLocaleString("en-IN", {
+                          year: "numeric",
+                          month: "numeric",
+                          day: "numeric",
+                          hour: "numeric",
+                          minute: "numeric",
+                          hour12: true,
+                        })}
+                        )
+                      </span>
+                      <CountdownTimer deadline={todo.deadline} />
+                    </div>
+                  )}
+                </div>
+                <div className="todo-actions">
+                  <button
+                    onClick={() =>
+                      handleToggleComplete(todo.id, todo.completed)
+                    }
+                    className="toggle-complete-button"
+                  >
+                    Complete
+                  </button>
+                  <button
+                    onClick={() => handleDeleteTodo(todo.id)}
+                    className="delete-button"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="no-tasks-message">No active tasks. Add a new one!</p>
+        )}
+      </div>
+
+      <div className="tasks-section completed-tasks-section">
+        <h3>Completed Tasks</h3>
+        {completedTasks.length > 0 ? (
+          <ul className="todo-list">
+            {completedTasks.map((todo) => (
+              <li key={todo.id} className="todo-item completed">
+                <div>
+                  <span>{todo.task}</span>
+                  {todo.deadline && (
+                    <span className="deadline">
+                      (Due:{" "}
+                      {new Date(todo.deadline).toLocaleString("en-IN", {
+                        year: "numeric",
+                        month: "numeric",
+                        day: "numeric",
+                        hour: "numeric",
+                        minute: "numeric",
+                        hour12: true,
+                      })}
+                      )
+                    </span>
+                  )}
+                </div>
+                <div className="todo-actions">
+                  <button
+                    onClick={() =>
+                      handleToggleComplete(todo.id, todo.completed)
+                    }
+                    className="toggle-complete-button"
+                  >
+                    Undo
+                  </button>
+                  <button
+                    onClick={() => handleDeleteTodo(todo.id)}
+                    className="delete-button"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="no-tasks-message">No completed tasks yet.</p>
+        )}
+      </div>
     </div>
   );
 }

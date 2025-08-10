@@ -333,6 +333,58 @@ body {
   }
 }
 
+/* src/index.css */
+/* ... (existing styles) ... */
+
+/* New styles for the task filter toggle */
+.task-filter-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.task-filter-toggle-button {
+  padding: 8px 16px;
+  background-color: #f39c12;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.task-filter-toggle-button:hover {
+  background-color: #e67e22;
+}
+
+/* src/index.css */
+/* ... (existing styles) ... */
+
+.no-tasks-message {
+  text-align: center;
+  color: #7f8c8d;
+  font-style: italic;
+  margin-top: 20px;
+}
+
+/* src/index.css */
+/* ... (existing styles) ... */
+
+/* Styles for the new sections */
+.tasks-section {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #e0e6ed;
+}
+
+.tasks-section h3 {
+  color: #2c3e50;
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
 /* Responsive adjustments */
 @media (max-width: 600px) {
   .app-header {
