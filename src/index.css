@@ -476,7 +476,34 @@ body {
   .add-todo-form .time-separator {
     display: none;
   }
+  /* src/index.css */
+  /* ... (existing styles) ... */
 
+  .add-todo-form select {
+    padding: 10px;
+    padding-right: 30px; /* Added more space for the arrow */
+    border: 1px solid #e0e6ed;
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: #fff;
+    color: #15191e;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="6" viewBox="0 0 10 6"><path fill="%2315191E" d="M5 6L0 0h10z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center; /* Adjusted arrow position */
+    margin-left: 5px;
+  }
+
+  .add-todo-form select:focus {
+    outline: none;
+    border-color: #766da7;
+    box-shadow: 0 0 0 3px rgba(118, 109, 167, 0.2);
+  }
+
+  /* Rest of the CSS remains the same */
   .add-todo-form {
     flex-direction: column;
   }
