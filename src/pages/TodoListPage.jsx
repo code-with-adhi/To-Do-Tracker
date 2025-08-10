@@ -76,7 +76,11 @@ function TodoListPage() {
           hour24 = 0;
         }
         const hourString = String(hour24).padStart(2, "0");
-        deadlineValue = `${newDeadline}T${hourString}:${newDueMinute}:00`;
+        // Correctly construct a local date object from the inputs and convert it to ISO string
+        const localDeadline = new Date(
+          `${newDeadline}T${hourString}:${newDueMinute}:00`
+        );
+        deadlineValue = localDeadline.toISOString();
       }
 
       await axios.post("/api/todos", {
@@ -247,8 +251,8 @@ function TodoListPage() {
             {activeTasks.map((todo) => (
               <li
                 key={todo.id}
-                className={`todo-item 
-                  ${isDeadlineToday(todo.deadline) ? "due-today" : ""} 
+                className={`todo-item
+                  ${isDeadlineToday(todo.deadline) ? "due-today" : ""}
                   ${isDeadlineTomorrow(todo.deadline) ? "due-tomorrow" : ""}`}
               >
                 <div className="task-info">
