@@ -27,7 +27,16 @@ function TodoListPage() {
     const fetchTodos = async () => {
       try {
         const response = await axios.get(`/api/todos?userId=${userId}`);
-        setTodos(response.data);
+
+        // --- NEW: Sort the todos by deadline after fetching ---
+        const sortedTodos = [...response.data].sort((a, b) => {
+          if (!a.deadline && !b.deadline) return 0;
+          if (!a.deadline) return 1;
+          if (!b.deadline) return -1;
+          return new Date(a.deadline) - new Date(b.deadline);
+        });
+
+        setTodos(sortedTodos);
       } catch (err) {
         console.error("Failed to fetch todos:", err);
         setErrorMessage("Failed to load todos.");
@@ -72,7 +81,15 @@ function TodoListPage() {
       setNewDueAmPm("AM");
 
       const response = await axios.get(`/api/todos?userId=${userId}`);
-      setTodos(response.data);
+
+      const sortedTodos = [...response.data].sort((a, b) => {
+        if (!a.deadline && !b.deadline) return 0;
+        if (!a.deadline) return 1;
+        if (!b.deadline) return -1;
+        return new Date(a.deadline) - new Date(b.deadline);
+      });
+
+      setTodos(sortedTodos);
       setErrorMessage(null);
     } catch (err) {
       console.error("Failed to add todo:", err);

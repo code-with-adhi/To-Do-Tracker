@@ -3,8 +3,8 @@
 /* Global Styles */
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f5f7fa;
-  color: #333;
+  background-color: #15191e;
+  color: #f5f7fa;
   margin: 0;
   padding: 0;
   display: flex;
@@ -20,10 +20,10 @@ body {
 
 /* App Header */
 .app-header {
-  background-color: #ffffff;
+  background-color: #2b3035;
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   margin-bottom: 30px;
   display: flex;
   justify-content: space-between;
@@ -32,7 +32,7 @@ body {
 
 .app-header h1 {
   margin: 0;
-  color: #2c3e50;
+  color: #f5f7fa;
   font-size: 28px;
 }
 
@@ -40,7 +40,7 @@ body {
 .app-header nav button {
   margin-left: 15px;
   text-decoration: none;
-  color: #3498db;
+  color: #766da7;
   font-weight: 600;
   font-size: 16px;
   border: none;
@@ -53,7 +53,7 @@ body {
 
 .app-header nav a:hover,
 .app-header nav button:hover {
-  background-color: #f0f4f8;
+  background-color: #444b54;
 }
 
 /* Main Container */
@@ -63,17 +63,17 @@ body {
 
 /* Form Container */
 .form-container {
-  background-color: #ffffff;
+  background-color: #2b3035;
   padding: 40px;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   max-width: 450px;
   margin: 40px auto;
   text-align: center;
 }
 
 .form-container h2 {
-  color: #2c3e50;
+  color: #f5f7fa;
   font-size: 24px;
   margin-bottom: 25px;
 }
@@ -87,13 +87,15 @@ body {
   text-align: left;
   margin-bottom: 8px;
   font-weight: 600;
-  color: #555;
+  color: #a0ae91;
 }
 
 .form-group input {
   width: 100%;
   padding: 12px;
-  border: 1px solid #e0e6ed;
+  border: 1px solid #444b54;
+  background-color: #383d42;
+  color: #f5f7fa;
   border-radius: 8px;
   box-sizing: border-box;
   font-size: 16px;
@@ -102,14 +104,14 @@ body {
 
 .form-group input:focus {
   outline: none;
-  border-color: #3498db;
-  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+  border-color: #766da7;
+  box-shadow: 0 0 0 3px rgba(118, 109, 167, 0.2);
 }
 
 .form-container button {
   width: 100%;
   padding: 15px;
-  background-color: #3498db;
+  background-color: #766da7;
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -120,12 +122,12 @@ body {
 }
 
 .form-container button:hover {
-  background-color: #2980b9;
+  background-color: #5d5482;
   transform: translateY(-2px);
 }
 
 .form-container button:disabled {
-  background-color: #bdc3c7;
+  background-color: #a0ae91;
   cursor: not-allowed;
   transform: none;
 }
@@ -145,20 +147,21 @@ body {
 .form-container p {
   margin-top: 20px;
   font-size: 14px;
+  color: #a0ae91;
 }
 
 .form-container p a {
-  color: #3498db;
+  color: #766da7;
   text-decoration: none;
   font-weight: 600;
 }
 
 /* To-Do List Page */
 .todo-list-container {
-  background-color: #ffffff;
+  background-color: #2b3035;
   padding: 30px;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
 .header-actions {
@@ -169,7 +172,7 @@ body {
 }
 
 .todo-list-container h2 {
-  color: #2c3e50;
+  color: #f5f7fa;
   font-size: 24px;
   margin: 0;
 }
@@ -183,14 +186,16 @@ body {
 .new-task-input {
   flex-grow: 1;
   padding: 12px;
-  border: 1px solid #e0e6ed;
+  border: 1px solid #444b54;
+  background-color: #383d42;
+  color: #f5f7fa;
   border-radius: 8px;
   font-size: 16px;
 }
 
 .add-todo-button {
   padding: 12px 20px;
-  background-color: #2ecc71;
+  background-color: #7a9663;
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -200,7 +205,7 @@ body {
 }
 
 .add-todo-button:hover {
-  background-color: #27ae60;
+  background-color: #556842;
 }
 
 .todo-list {
@@ -214,19 +219,20 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 18px;
-  background-color: #f9fbfd;
+  background-color: #383d42;
   border-radius: 8px;
   margin-bottom: 12px;
-  border-left: 5px solid #3498db;
+  border-left: 5px solid #766da7;
   font-size: 16px;
   word-break: break-word;
+  color: #f5f7fa;
 }
 
 .todo-item.completed {
-  border-left-color: #2ecc71;
-  background-color: #e8f9ed;
+  border-left-color: #7a9663;
+  background-color: #32373c;
   text-decoration: line-through;
-  color: #7f8c8d;
+  color: #a0ae91;
 }
 
 .todo-actions button {
@@ -240,12 +246,12 @@ body {
 }
 
 .todo-actions .toggle-complete-button {
-  background-color: #3498db;
+  background-color: #766da7;
   color: #fff;
 }
 
 .todo-actions .toggle-complete-button:hover {
-  background-color: #2980b9;
+  background-color: #5d5482;
   transform: translateY(-2px);
 }
 
@@ -262,23 +268,24 @@ body {
 /* Styles for time dropdowns */
 .add-todo-form select {
   padding: 10px;
-  border: 1px solid #e0e6ed;
+  border: 1px solid #444b54;
   border-radius: 8px;
   font-size: 16px;
-  background-color: #fff;
+  background-color: #383d42;
+  color: #f5f7fa;
   cursor: pointer;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="6" viewBox="0 0 10 6"><path fill="%23333" d="M5 6L0 0h10z"/></svg>');
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="6" viewBox="0 0 10 6"><path fill="%23f5f7fa" d="M5 6L0 0h10z"/></svg>');
   background-repeat: no-repeat;
   background-position: right 10px center;
 }
 
 .add-todo-form select:focus {
   outline: none;
-  border-color: #3498db;
-  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+  border-color: #766da7;
+  box-shadow: 0 0 0 3px rgba(118, 109, 167, 0.2);
 }
 
 .add-todo-form .time-select {
@@ -294,6 +301,7 @@ body {
 .add-todo-form .time-separator {
   margin: 0 5px;
   font-size: 16px;
+  color: #f5f7fa;
 }
 
 /* Popup Error Message */
@@ -333,9 +341,6 @@ body {
   }
 }
 
-/* src/index.css */
-/* ... (existing styles) ... */
-
 /* New styles for the task filter toggle */
 .task-filter-container {
   display: flex;
@@ -346,7 +351,7 @@ body {
 
 .task-filter-toggle-button {
   padding: 8px 16px;
-  background-color: #f39c12;
+  background-color: #766da7;
   color: #fff;
   border: none;
   border-radius: 8px;
@@ -356,46 +361,69 @@ body {
 }
 
 .task-filter-toggle-button:hover {
-  background-color: #e67e22;
+  background-color: #5d5482;
 }
 
-/* src/index.css */
-/* ... (existing styles) ... */
+/* New styles for the deadline details */
+.deadline-details {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 5px;
+  font-size: 14px;
+}
 
-.no-tasks-message {
-  text-align: center;
-  color: #7f8c8d;
+.deadline-passed {
+  font-weight: bold;
+  color: #e74c3c;
+  margin-left: 10px;
+}
+
+.countdown-timer {
   font-style: italic;
-  margin-top: 20px;
-}
-
-/* src/index.css */
-/* ... (existing styles) ... */
-
-/* Styles for the new sections */
-.tasks-section {
-  margin-top: 30px;
-  padding-top: 20px;
-  border-top: 1px solid #e0e6ed;
-}
-
-.tasks-section h3 {
-  color: #2c3e50;
-  font-size: 20px;
-  margin-bottom: 15px;
+  font-size: 0.9em;
+  color: #a0ae91;
+  margin-left: 10px;
 }
 /* src/index.css */
 /* ... (existing styles) ... */
+
+.add-todo-form input[type="date"] {
+  background-color: #383d42;
+  color: #f5f7fa;
+  border: 1px solid #444b54;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.add-todo-form input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1); /* This inverts the color of the calendar icon */
+  cursor: pointer;
+}
+
+.deadline {
+  color: #a0ae91;
+}
 
 .todo-item.due-today {
   border-left-color: #e74c3c;
 }
 
-/* src/index.css */
-/* ... (existing styles) ... */
-
 .todo-item.due-tomorrow {
   border-left-color: #f39c12;
+}
+
+/* No tasks message */
+.no-tasks-message {
+  text-align: center;
+  color: #a0ae91;
+  font-style: italic;
+  margin-top: 20px;
 }
 
 /* Responsive adjustments */
@@ -414,13 +442,11 @@ body {
   .add-todo-form {
     flex-direction: column;
   }
-  .add-todo-form
-    > input:not([type="date"]):not([type="checkbox"]):not([type="radio"]),
+  .add-todo-form input,
   .add-todo-form select {
     width: 100%;
     box-sizing: border-box;
     margin-bottom: 10px;
-    margin-left: 0;
   }
   .add-todo-form .time-separator {
     display: none;
