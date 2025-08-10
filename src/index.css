@@ -457,24 +457,20 @@ body {
   }
   .add-todo-form {
     flex-direction: column;
-    gap: 0;
+    gap: 10px;
   }
   .add-todo-form input,
   .add-todo-form select {
     width: 100%;
     box-sizing: border-box;
-    margin-bottom: 10px;
+    margin-bottom: 0;
     margin-left: 0;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-image: none;
   }
   .add-todo-form .time-selectors {
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
-    margin-bottom: 10px;
+    margin-bottom: 0;
     gap: 5px;
   }
   .add-todo-form .time-selectors input,
@@ -485,8 +481,5 @@ body {
   }
   .add-todo-form .time-separator {
     display: none;
-  }
-  .add-todo-form .deadline-input {
-    width: 100%;
   }
 }
