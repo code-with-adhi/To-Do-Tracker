@@ -114,6 +114,30 @@ function TodoListPage() {
     }
   };
 
+  const isDeadlineToday = (deadline) => {
+    if (!deadline) return false;
+    const today = new Date();
+    const deadlineDate = new Date(deadline);
+    return (
+      today.getDate() === deadlineDate.getDate() &&
+      today.getMonth() === deadlineDate.getMonth() &&
+      today.getFullYear() === deadlineDate.getFullYear()
+    );
+  };
+
+  const isDeadlineTomorrow = (deadline) => {
+    if (!deadline) return false;
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+    const deadlineDate = new Date(deadline);
+    return (
+      tomorrow.getDate() === deadlineDate.getDate() &&
+      tomorrow.getMonth() === deadlineDate.getMonth() &&
+      tomorrow.getFullYear() === deadlineDate.getFullYear()
+    );
+  };
+
   if (loading) {
     return <div className="loading-message">Loading todos...</div>;
   }
@@ -194,7 +218,12 @@ function TodoListPage() {
         {activeTasks.length > 0 ? (
           <ul className="todo-list">
             {activeTasks.map((todo) => (
-              <li key={todo.id} className="todo-item">
+              <li
+                key={todo.id}
+                className={`todo-item 
+                  ${isDeadlineToday(todo.deadline) ? "due-today" : ""} 
+                  ${isDeadlineTomorrow(todo.deadline) ? "due-tomorrow" : ""}`}
+              >
                 <div>
                   <span>{todo.task}</span>
                   {todo.deadline && (

@@ -384,6 +384,19 @@ body {
   font-size: 20px;
   margin-bottom: 15px;
 }
+/* src/index.css */
+/* ... (existing styles) ... */
+
+.todo-item.due-today {
+  border-left-color: #e74c3c;
+}
+
+/* src/index.css */
+/* ... (existing styles) ... */
+
+.todo-item.due-tomorrow {
+  border-left-color: #f39c12;
+}
 
 /* Responsive adjustments */
 @media (max-width: 600px) {
