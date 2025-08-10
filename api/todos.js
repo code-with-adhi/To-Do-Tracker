@@ -1,3 +1,5 @@
+// api/todos.js
+
 import mysql from "mysql2/promise";
 
 export default async function handler(req, res) {
@@ -18,60 +20,58 @@ export default async function handler(req, res) {
     });
 
     switch (req.method) {
+      // --- READ: Get all todos for the user ---
       case "GET":
         const [todos] = await connection.execute(
-          "SELECT id, task, completed FROM todos WHERE user_id = ?",
+          "SELECT id, task, completed, deadline FROM todos WHERE user_id = ?",
           [userId]
         );
         res.status(200).json(todos);
         break;
 
+      // --- CREATE: Add a new todo ---
       case "POST":
-        const { task } = req.body;
+        const { task, deadline } = req.body;
         if (!task) {
           return res.status(400).json({ message: "Task is required." });
         }
-        const [insertResult] = await connection.execute(
-          "INSERT INTO todos (task, user_id) VALUES (?, ?)",
-          [task, userId]
+        // Correctly handle the deadline. If it's an empty string, set it to NULL.
+        const deadlineValue = deadline || null;
+
+        await connection.execute(
+          "INSERT INTO todos (task, deadline, user_id) VALUES (?, ?, ?)",
+          [task, deadlineValue, userId]
         );
         res.status(201).json({
           message: "Todo created successfully!",
-          id: insertResult.insertId,
         });
         break;
 
+      // --- UPDATE: Update an existing todo ---
       case "PUT":
-        const { id, updatedTask, completed } = req.body;
+        const { id, updatedTask, completed, newDeadline } = req.body;
         if (!id) {
           return res.status(400).json({ message: "Todo ID is required." });
         }
-        const [updateResult] = await connection.execute(
-          "UPDATE todos SET task = ?, completed = ? WHERE id = ? AND user_id = ?",
-          [updatedTask, completed, id, userId]
+        // Correctly handle the deadline. If it's an empty string, set it to NULL.
+        const updatedDeadlineValue = newDeadline || null;
+        await connection.execute(
+          "UPDATE todos SET task = ?, completed = ?, deadline = ? WHERE id = ? AND user_id = ?",
+          [updatedTask, completed, updatedDeadlineValue, id, userId]
         );
-        if (updateResult.affectedRows === 0) {
-          return res
-            .status(404)
-            .json({ message: "Todo not found or unauthorized." });
-        }
         res.status(200).json({ message: "Todo updated successfully!" });
         break;
 
+      // --- DELETE: Delete an existing todo ---
       case "DELETE":
         const { todoId } = req.query;
         if (!todoId) {
           return res.status(400).json({ message: "Todo ID is required." });
         }
-        const [deleteResult] = await connection.execute(
+        await connection.execute(
           "DELETE FROM todos WHERE id = ? AND user_id = ?",
           [todoId, userId]
         );
-        if (deleteResult.affectedRows === 0) {
-          return res
-            .status(404)
-            .json({ message: "Todo not found or unauthorized." });
-        }
         res.status(200).json({ message: "Todo deleted successfully!" });
         break;
 

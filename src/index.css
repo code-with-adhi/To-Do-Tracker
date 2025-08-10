@@ -259,6 +259,80 @@ body {
   transform: translateY(-2px);
 }
 
+/* Styles for time dropdowns */
+.add-todo-form select {
+  padding: 10px;
+  border: 1px solid #e0e6ed;
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: #fff;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="6" viewBox="0 0 10 6"><path fill="%23333" d="M5 6L0 0h10z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+
+.add-todo-form select:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+.add-todo-form .time-select {
+  width: 70px;
+  margin-left: 5px;
+}
+
+.add-todo-form .ampm-select {
+  width: 60px;
+  margin-left: 5px;
+}
+
+.add-todo-form .time-separator {
+  margin: 0 5px;
+  font-size: 16px;
+}
+
+/* Popup Error Message */
+.error-message.popup {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #f44336;
+  color: white;
+  padding: 15px 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@keyframes fadein {
+  from {
+    top: 0;
+    opacity: 0;
+  }
+  to {
+    top: 20px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    top: 20px;
+    opacity: 1;
+  }
+  to {
+    top: 0;
+    opacity: 0;
+  }
+}
+
 /* Responsive adjustments */
 @media (max-width: 600px) {
   .app-header {
@@ -274,5 +348,16 @@ body {
   }
   .add-todo-form {
     flex-direction: column;
+  }
+  .add-todo-form
+    > input:not([type="date"]):not([type="checkbox"]):not([type="radio"]),
+  .add-todo-form select {
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    margin-left: 0;
+  }
+  .add-todo-form .time-separator {
+    display: none;
   }
 }
