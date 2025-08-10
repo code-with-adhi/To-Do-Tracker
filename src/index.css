@@ -268,6 +268,7 @@ body {
 /* Styles for time dropdowns */
 .add-todo-form select {
   padding: 10px;
+  padding-right: 25px;
   border: 1px solid #444b54;
   border-radius: 8px;
   font-size: 16px;
@@ -279,7 +280,8 @@ body {
   appearance: none;
   background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="6" viewBox="0 0 10 6"><path fill="%23f5f7fa" d="M5 6L0 0h10z"/></svg>');
   background-repeat: no-repeat;
-  background-position: right 10px center;
+  background-position: right 8px center;
+  margin-left: 5px;
 }
 
 .add-todo-form select:focus {
@@ -289,12 +291,12 @@ body {
 }
 
 .add-todo-form .time-select {
-  width: 70px;
+  width: 65px;
   margin-left: 5px;
 }
 
 .add-todo-form .ampm-select {
-  width: 60px;
+  width: 55px;
   margin-left: 5px;
 }
 
@@ -302,6 +304,30 @@ body {
   margin: 0 5px;
   font-size: 16px;
   color: #f5f7fa;
+}
+
+.add-todo-form input[type="date"] {
+  background-color: #383d42;
+  color: #f5f7fa;
+  border: 1px solid #444b54;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.add-todo-form input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
+
+.user-greeting {
+  color: #a0ae91;
+  font-weight: 600;
+  margin-right: 15px;
 }
 
 /* Popup Error Message */
@@ -385,46 +411,6 @@ body {
   color: #a0ae91;
   margin-left: 10px;
 }
-/* src/index.css */
-/* ... (existing styles) ... */
-
-.add-todo-form input[type="date"] {
-  background-color: #383d42;
-  color: #f5f7fa;
-  border: 1px solid #444b54;
-  padding: 12px;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
-
-.add-todo-form input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(1); /* This inverts the color of the calendar icon */
-  cursor: pointer;
-}
-
-/* src/index.css */
-/* ... (existing styles) ... */
-
-.logo-and-title {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.app-logo {
-  height: 50px; /* Adjust size as needed */
-  width: auto;
-}
-
-.app-header h1 {
-  margin: 0;
-  color: #f5f7fa;
-  font-size: 28px;
-}
 
 .deadline {
   color: #a0ae91;
@@ -436,11 +422,6 @@ body {
 
 .todo-item.due-tomorrow {
   border-left-color: #f39c12;
-}
-.add-todo-form .time-selectors {
-  display: flex;
-  align-items: center;
-  gap: 5px;
 }
 
 /* No tasks message */
@@ -473,13 +454,6 @@ body {
     box-sizing: border-box;
     margin-bottom: 10px;
   }
-  .add-todo-form .time-separator {
-    display: none;
-  }
-
-  .add-todo-form {
-    flex-direction: column;
-  }
   .add-todo-form .time-selectors {
     flex-direction: row;
     justify-content: space-between;
@@ -491,5 +465,11 @@ body {
     width: auto;
     flex-grow: 1;
     margin-left: 0;
+  }
+  .add-todo-form .time-separator {
+    display: none;
+  }
+  .add-todo-form .deadline-input {
+    width: 100%;
   }
 }
