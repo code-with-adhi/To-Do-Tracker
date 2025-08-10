@@ -472,4 +472,43 @@ body {
   .add-todo-form .time-separator {
     display: none;
   }
+  .icon-button {
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .icon-button.complete {
+    border: 2px solid #16a34a;
+    background-color: #16a34a;
+    color: #fff;
+  }
+  .icon-button.delete {
+    border: 2px solid #dc2626;
+    background-color: #dc2626;
+    color: #fff;
+  }
+  .icon-button.complete img,
+  .icon-button.delete img {
+    filter: invert(1);
+  }
+  .todo-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .task-info {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .todo-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+  .icon-buttons-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
 }

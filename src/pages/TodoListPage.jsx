@@ -1,7 +1,12 @@
+// src/pages/TodoListPage.jsx
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import CountdownTimer from "../components/CountdownTimer";
+import tickIcon from "../assets/tick.png";
+import binIcon from "../assets/bin.png";
+import undoIcon from "../assets/undo.png";
 
 function TodoListPage() {
   const [todos, setTodos] = useState([]);
@@ -12,6 +17,7 @@ function TodoListPage() {
   const [newDueAmPm, setNewDueAmPm] = useState("AM");
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
   const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
 
@@ -40,7 +46,16 @@ function TodoListPage() {
       }
     };
 
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 600);
+    };
+
+    window.addEventListener("resize", handleResize);
     fetchTodos();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, [userId, navigate]);
 
   const handleAddTodo = async (e) => {
@@ -236,7 +251,7 @@ function TodoListPage() {
                   ${isDeadlineToday(todo.deadline) ? "due-today" : ""} 
                   ${isDeadlineTomorrow(todo.deadline) ? "due-tomorrow" : ""}`}
               >
-                <div>
+                <div className="task-info">
                   <span>{todo.task}</span>
                   {todo.deadline && (
                     <div className="deadline-details">
@@ -257,20 +272,41 @@ function TodoListPage() {
                   )}
                 </div>
                 <div className="todo-actions">
-                  <button
-                    onClick={() =>
-                      handleToggleComplete(todo.id, todo.completed)
-                    }
-                    className="toggle-complete-button"
-                  >
-                    Complete
-                  </button>
-                  <button
-                    onClick={() => handleDeleteTodo(todo.id)}
-                    className="delete-button"
-                  >
-                    Delete
-                  </button>
+                  {isMobile ? (
+                    <div className="icon-buttons-container">
+                      <img
+                        src={tickIcon}
+                        alt="Complete"
+                        onClick={() =>
+                          handleToggleComplete(todo.id, todo.completed)
+                        }
+                        className="icon-button complete"
+                      />
+                      <img
+                        src={binIcon}
+                        alt="Delete"
+                        onClick={() => handleDeleteTodo(todo.id)}
+                        className="icon-button delete"
+                      />
+                    </div>
+                  ) : (
+                    <>
+                      <button
+                        onClick={() =>
+                          handleToggleComplete(todo.id, todo.completed)
+                        }
+                        className="toggle-complete-button"
+                      >
+                        Complete
+                      </button>
+                      <button
+                        onClick={() => handleDeleteTodo(todo.id)}
+                        className="delete-button"
+                      >
+                        Delete
+                      </button>
+                    </>
+                  )}
                 </div>
               </li>
             ))}
@@ -286,7 +322,7 @@ function TodoListPage() {
           <ul className="todo-list">
             {completedTasks.map((todo) => (
               <li key={todo.id} className="todo-item completed">
-                <div>
+                <div className="task-info">
                   <span>{todo.task}</span>
                   {todo.deadline && (
                     <span className="deadline">
@@ -304,20 +340,41 @@ function TodoListPage() {
                   )}
                 </div>
                 <div className="todo-actions">
-                  <button
-                    onClick={() =>
-                      handleToggleComplete(todo.id, todo.completed)
-                    }
-                    className="toggle-complete-button"
-                  >
-                    Undo
-                  </button>
-                  <button
-                    onClick={() => handleDeleteTodo(todo.id)}
-                    className="delete-button"
-                  >
-                    Delete
-                  </button>
+                  {isMobile ? (
+                    <div className="icon-buttons-container">
+                      <img
+                        src={undoIcon}
+                        alt="Undo"
+                        onClick={() =>
+                          handleToggleComplete(todo.id, todo.completed)
+                        }
+                        className="icon-button complete"
+                      />
+                      <img
+                        src={binIcon}
+                        alt="Delete"
+                        onClick={() => handleDeleteTodo(todo.id)}
+                        className="icon-button delete"
+                      />
+                    </div>
+                  ) : (
+                    <>
+                      <button
+                        onClick={() =>
+                          handleToggleComplete(todo.id, todo.completed)
+                        }
+                        className="toggle-complete-button"
+                      >
+                        Undo
+                      </button>
+                      <button
+                        onClick={() => handleDeleteTodo(todo.id)}
+                        className="delete-button"
+                      >
+                        Delete
+                      </button>
+                    </>
+                  )}
                 </div>
               </li>
             ))}
