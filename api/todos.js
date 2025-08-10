@@ -1,11 +1,19 @@
-// api/todos.js
-
 import mysql from "mysql2/promise";
 
 export default async function handler(req, res) {
   let connection;
 
-  const userId = req.body.userId || req.query.userId;
+  // --- FIX: Add a check to ensure req.body is parsed ---
+  if (req.body && typeof req.body === "string") {
+    try {
+      req.body = JSON.parse(req.body);
+    } catch (e) {
+      console.error("Failed to parse request body:", e);
+      return res.status(400).json({ message: "Invalid JSON format" });
+    }
+  }
+
+  const userId = req.body?.userId || req.query.userId;
   if (!userId) {
     return res.status(401).json({ message: "Authentication required." });
   }
@@ -20,7 +28,6 @@ export default async function handler(req, res) {
     });
 
     switch (req.method) {
-      // --- READ: Get all todos for the user ---
       case "GET":
         const [todos] = await connection.execute(
           "SELECT id, task, completed, deadline FROM todos WHERE user_id = ?",
@@ -29,7 +36,6 @@ export default async function handler(req, res) {
         res.status(200).json(todos);
         break;
 
-      // --- CREATE: Add a new todo ---
       case "POST":
         const { task, deadline } = req.body;
         if (!task) {
@@ -46,7 +52,6 @@ export default async function handler(req, res) {
         });
         break;
 
-      // --- UPDATE: Update an existing todo ---
       case "PUT":
         const { id, updatedTask, completed } = req.body;
         if (!id) {
@@ -59,7 +64,6 @@ export default async function handler(req, res) {
         res.status(200).json({ message: "Todo updated successfully!" });
         break;
 
-      // --- DELETE: Delete an existing todo ---
       case "DELETE":
         const { todoId } = req.query;
         if (!todoId) {
