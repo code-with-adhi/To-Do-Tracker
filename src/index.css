@@ -330,6 +330,17 @@ body {
   margin-right: 15px;
 }
 
+.logo-and-title {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.app-logo {
+  height: 40px; /* Adjusted logo height */
+  width: auto;
+}
+
 /* Popup Error Message */
 .error-message.popup {
   position: fixed;
@@ -448,15 +459,12 @@ body {
   .add-todo-form {
     flex-direction: column;
   }
-<<<<<<< HEAD
   .add-todo-form input,
   .add-todo-form select {
     width: 100%;
     box-sizing: border-box;
     margin-bottom: 10px;
   }
-=======
->>>>>>> d2f73c2c98fa92da010282b91683c0924a946961
   .add-todo-form .time-selectors {
     flex-direction: row;
     justify-content: space-between;
