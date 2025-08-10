@@ -1,5 +1,3 @@
-// src/pages/TodoListPage.jsx
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +12,6 @@ function TodoListPage() {
   const [newDueAmPm, setNewDueAmPm] = useState("AM");
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
-  const [showCompleted, setShowCompleted] = useState(false);
   const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
 
@@ -165,15 +162,7 @@ function TodoListPage() {
 
   return (
     <div className="todo-list-container">
-      <div className="task-filter-container">
-        <h2>Your To-Do List</h2>
-        <button
-          onClick={() => setShowCompleted(!showCompleted)}
-          className="task-filter-toggle-button"
-        >
-          {showCompleted ? "Show Active Tasks" : "Show Completed Tasks"}
-        </button>
-      </div>
+      <h2>Your To-Do List</h2>
 
       <form onSubmit={handleAddTodo} className="add-todo-form">
         <input
@@ -183,14 +172,14 @@ function TodoListPage() {
           placeholder="Add a new task..."
           className="new-task-input"
         />
-        <input
-          type="date"
-          value={newDeadline}
-          onChange={(e) => setNewDeadline(e.target.value)}
-          className="deadline-input"
-          title="Set a deadline date"
-        />
         <div className="time-selectors-container">
+          <input
+            type="date"
+            value={newDeadline}
+            onChange={(e) => setNewDeadline(e.target.value)}
+            className="deadline-input"
+            title="Set a deadline date"
+          />
           <select
             value={newDueHour}
             onChange={(e) => setNewDueHour(e.target.value)}
