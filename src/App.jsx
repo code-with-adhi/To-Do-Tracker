@@ -10,6 +10,7 @@ import {
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import TodoListPage from "./pages/TodoListPage";
+import logo from "./assets/logo.png"; // Import the logo image
 
 function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -31,7 +32,7 @@ function Header() {
     return () => {
       window.removeEventListener("storage", checkAuth);
     };
-  }, [location.pathname]); // Add location.pathname to re-run on route change
+  }, [location.pathname]);
 
   const handleLogout = () => {
     localStorage.removeItem("userId");
@@ -46,7 +47,10 @@ function Header() {
 
   return (
     <header className="app-header">
-      <h1>My To-Do App</h1>
+      <div className="logo-and-title">
+        <img src={logo} alt="To Do Tracker Logo" className="app-logo" />
+        <h1>My To-Do App</h1>
+      </div>
       <nav>
         {isLoggedIn ? (
           <>

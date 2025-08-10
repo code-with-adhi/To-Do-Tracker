@@ -406,6 +406,26 @@ body {
   cursor: pointer;
 }
 
+/* src/index.css */
+/* ... (existing styles) ... */
+
+.logo-and-title {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.app-logo {
+  height: 50px; /* Adjust size as needed */
+  width: auto;
+}
+
+.app-header h1 {
+  margin: 0;
+  color: #f5f7fa;
+  font-size: 28px;
+}
+
 .deadline {
   color: #a0ae91;
 }
