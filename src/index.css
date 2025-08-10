@@ -437,6 +437,11 @@ body {
 .todo-item.due-tomorrow {
   border-left-color: #f39c12;
 }
+.add-todo-form .time-selectors {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
 
 /* No tasks message */
 .no-tasks-message {
@@ -470,5 +475,21 @@ body {
   }
   .add-todo-form .time-separator {
     display: none;
+  }
+
+  .add-todo-form {
+    flex-direction: column;
+  }
+  .add-todo-form .time-selectors {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .add-todo-form .time-selectors input,
+  .add-todo-form .time-selectors select {
+    width: auto;
+    flex-grow: 1;
+    margin-left: 0;
   }
 }

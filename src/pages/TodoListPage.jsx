@@ -1,5 +1,3 @@
-// src/pages/TodoListPage.jsx
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -27,8 +25,6 @@ function TodoListPage() {
     const fetchTodos = async () => {
       try {
         const response = await axios.get(`/api/todos?userId=${userId}`);
-
-        // --- NEW: Sort the todos by deadline after fetching ---
         const sortedTodos = [...response.data].sort((a, b) => {
           if (!a.deadline && !b.deadline) return 0;
           if (!a.deadline) return 1;
@@ -81,14 +77,12 @@ function TodoListPage() {
       setNewDueAmPm("AM");
 
       const response = await axios.get(`/api/todos?userId=${userId}`);
-
       const sortedTodos = [...response.data].sort((a, b) => {
         if (!a.deadline && !b.deadline) return 0;
         if (!a.deadline) return 1;
         if (!b.deadline) return -1;
         return new Date(a.deadline) - new Date(b.deadline);
       });
-
       setTodos(sortedTodos);
       setErrorMessage(null);
     } catch (err) {
@@ -169,7 +163,15 @@ function TodoListPage() {
 
   return (
     <div className="todo-list-container">
-      <h2>Your To-Do List</h2>
+      <div className="task-filter-container">
+        <h2>Your To-Do List</h2>
+        <button
+          onClick={() => setShowCompleted(!showCompleted)}
+          className="task-filter-toggle-button"
+        >
+          {showCompleted ? "Show Active Tasks" : "Show Completed Tasks"}
+        </button>
+      </div>
 
       <form onSubmit={handleAddTodo} className="add-todo-form">
         <input
@@ -179,50 +181,52 @@ function TodoListPage() {
           placeholder="Add a new task..."
           className="new-task-input"
         />
-        <input
-          type="date"
-          value={newDeadline}
-          onChange={(e) => setNewDeadline(e.target.value)}
-          className="deadline-input"
-          title="Set a deadline date"
-        />
-        <select
-          value={newDueHour}
-          onChange={(e) => setNewDueHour(e.target.value)}
-          className="time-select"
-          title="Set due hour"
-        >
-          {hours12.map((hour) => (
-            <option key={hour} value={hour}>
-              {hour}
-            </option>
-          ))}
-        </select>
-        <span className="time-separator">:</span>
-        <select
-          value={newDueMinute}
-          onChange={(e) => setNewDueMinute(e.target.value)}
-          className="time-select"
-          title="Set due minute"
-        >
-          {minutes.map((minute) => (
-            <option key={minute} value={minute}>
-              {minute}
-            </option>
-          ))}
-        </select>
-        <select
-          value={newDueAmPm}
-          onChange={(e) => setNewDueAmPm(e.target.value)}
-          className="ampm-select"
-          title="Set AM/PM"
-        >
-          {ampm.map((period) => (
-            <option key={period} value={period}>
-              {period}
-            </option>
-          ))}
-        </select>
+        <div className="time-selectors">
+          <input
+            type="date"
+            value={newDeadline}
+            onChange={(e) => setNewDeadline(e.target.value)}
+            className="deadline-input"
+            title="Set a deadline date"
+          />
+          <select
+            value={newDueHour}
+            onChange={(e) => setNewDueHour(e.target.value)}
+            className="time-select"
+            title="Set due hour"
+          >
+            {hours12.map((hour) => (
+              <option key={hour} value={hour}>
+                {hour}
+              </option>
+            ))}
+          </select>
+          <span className="time-separator">:</span>
+          <select
+            value={newDueMinute}
+            onChange={(e) => setNewDueMinute(e.target.value)}
+            className="time-select"
+            title="Set due minute"
+          >
+            {minutes.map((minute) => (
+              <option key={minute} value={minute}>
+                {minute}
+              </option>
+            ))}
+          </select>
+          <select
+            value={newDueAmPm}
+            onChange={(e) => setNewDueAmPm(e.target.value)}
+            className="ampm-select"
+            title="Set AM/PM"
+          >
+            {ampm.map((period) => (
+              <option key={period} value={period}>
+                {period}
+              </option>
+            ))}
+          </select>
+        </div>
         <button type="submit" className="add-todo-button">
           Add Todo
         </button>
