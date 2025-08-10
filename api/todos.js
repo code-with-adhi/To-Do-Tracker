@@ -1,9 +1,10 @@
+// api/todos.js
+
 import mysql from "mysql2/promise";
 
 export default async function handler(req, res) {
   let connection;
 
-  // --- FIX: Add a check to ensure req.body is parsed ---
   if (req.body && typeof req.body === "string") {
     try {
       req.body = JSON.parse(req.body);

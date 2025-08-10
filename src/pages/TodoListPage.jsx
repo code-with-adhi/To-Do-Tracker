@@ -76,10 +76,15 @@ function TodoListPage() {
           hour24 = 0;
         }
         const hourString = String(hour24).padStart(2, "0");
-        const localDeadline = new Date(newDeadline);
-        localDeadline.setHours(hour24, parseInt(newDueMinute, 10), 0, 0);
+        const localDeadline = new Date(
+          `${newDeadline}T${hourString}:${newDueMinute}:00`
+        );
 
-        deadlineValue = localDeadline.toISOString();
+        // --- FIX: Format the date string for MySQL ---
+        deadlineValue = localDeadline
+          .toISOString()
+          .slice(0, 19)
+          .replace("T", " ");
       }
 
       await axios.post("/api/todos", {
@@ -250,8 +255,8 @@ function TodoListPage() {
             {activeTasks.map((todo) => (
               <li
                 key={todo.id}
-                className={`todo-item 
-                  ${isDeadlineToday(todo.deadline) ? "due-today" : ""} 
+                className={`todo-item
+                  ${isDeadlineToday(todo.deadline) ? "due-today" : ""}
                   ${isDeadlineTomorrow(todo.deadline) ? "due-tomorrow" : ""}`}
               >
                 <div className="task-info">
