@@ -84,11 +84,6 @@ function TodoListPage() {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("userId");
-    navigate("/login");
-  };
-
   if (loading) {
     return <div className="loading-message">Loading todos...</div>;
   }
@@ -97,9 +92,6 @@ function TodoListPage() {
     <div className="todo-list-container">
       <div className="header-actions">
         <h2>Your To-Do List</h2>
-        <button onClick={handleLogout} className="logout-button">
-          Log Out
-        </button>
       </div>
       {error && <p className="error-message">{error}</p>}
 
