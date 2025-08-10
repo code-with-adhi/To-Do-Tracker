@@ -281,6 +281,7 @@ body {
   background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="6" viewBox="0 0 10 6"><path fill="%23f5f7fa" d="M5 6L0 0h10z"/></svg>');
   background-repeat: no-repeat;
   background-position: right 8px center;
+  margin-left: 5px;
 }
 
 .add-todo-form select:focus {
@@ -447,11 +448,16 @@ body {
   .add-todo-form {
     flex-direction: column;
   }
-  .add-todo-form input,
-  .add-todo-form select {
+  .add-todo-form .time-selectors {
+    flex-direction: row;
+    justify-content: space-between;
     width: 100%;
-    box-sizing: border-box;
     margin-bottom: 10px;
+  }
+  .add-todo-form .time-selectors input,
+  .add-todo-form .time-selectors select {
+    width: auto;
+    flex-grow: 1;
     margin-left: 0;
   }
   .add-todo-form .time-separator {
