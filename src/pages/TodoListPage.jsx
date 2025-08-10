@@ -1,3 +1,5 @@
+// src/pages/TodoListPage.jsx
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -181,14 +183,14 @@ function TodoListPage() {
           placeholder="Add a new task..."
           className="new-task-input"
         />
-        <div className="time-selectors">
-          <input
-            type="date"
-            value={newDeadline}
-            onChange={(e) => setNewDeadline(e.target.value)}
-            className="deadline-input"
-            title="Set a deadline date"
-          />
+        <input
+          type="date"
+          value={newDeadline}
+          onChange={(e) => setNewDeadline(e.target.value)}
+          className="deadline-input"
+          title="Set a deadline date"
+        />
+        <div className="time-selectors-container">
           <select
             value={newDueHour}
             onChange={(e) => setNewDueHour(e.target.value)}

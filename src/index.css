@@ -179,6 +179,7 @@ body {
 
 .add-todo-form {
   display: flex;
+  flex-direction: column; /* Vertical layout on desktop */
   gap: 10px;
   margin-bottom: 25px;
 }
@@ -281,6 +282,7 @@ body {
   background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="6" viewBox="0 0 10 6"><path fill="%23f5f7fa" d="M5 6L0 0h10z"/></svg>');
   background-repeat: no-repeat;
   background-position: right 8px center;
+  margin-left: 5px;
 }
 
 .add-todo-form select:focus {
@@ -459,27 +461,25 @@ body {
     flex-direction: column;
     gap: 10px;
   }
-  .add-todo-form input,
-  .add-todo-form select {
+  .new-task-input {
     width: 100%;
     box-sizing: border-box;
-    margin-bottom: 0;
-    margin-left: 0;
   }
-  .add-todo-form .time-selectors {
-    flex-direction: row;
-    justify-content: space-between;
+  .add-todo-button {
     width: 100%;
-    margin-bottom: 0;
-    gap: 5px;
   }
-  .add-todo-form .time-selectors input,
-  .add-todo-form .time-selectors select {
-    width: auto;
+  .time-selectors-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
+  }
+  .time-selectors-container input,
+  .time-selectors-container select {
     flex-grow: 1;
-    margin-left: 0;
   }
   .add-todo-form .time-separator {
-    display: none;
+    display: block;
+    margin: 0 5px;
   }
 }
