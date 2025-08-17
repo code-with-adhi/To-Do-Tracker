@@ -1,113 +1,121 @@
-To-Do Tracker
-Welcome to the To-Do Tracker application! This is a full-stack web application for managing tasks, built with a modern and responsive user interface. This project is ready for deployment.
+# To-Do Tracker 
 
-Features:
-
-User Authentication: Secure sign-up and login with password hashing.
-
-Task Management: Create, read, update, and delete to-do tasks.
-
-Smart Task Organization: Tasks are automatically sorted by deadline and organized into "Active Tasks" and "Completed Tasks" lists.
-
-Deadline Tracking: Set deadlines with a specific date and time for each task.
-
-Responsive UI: A clean, dark-themed interface that is optimized for both desktop and mobile devices.
+A full-stack web application designed for efficient task management. Built with a modern tech stack, this project features a clean, responsive, dark-themed UI and is ready for deployment on Vercel.
 
 
-Color Palette:
 
-The project's design is based on a modern and clean color palette.
+---
 
-#766DA7 (Primary)
+##  Live Demo
 
-#15191E (Background)
+Here is the full functional To-Do-Tracker
 
-#7A9663 (Accent)
+[View Live Demo](https://to-do-tracker-by-adhi.vercel.app)
 
-#556842 (Secondary Accent)
+---
 
-#A0AE91 (Text/Icon)
+##  Features
 
+*  **User Authentication:** Secure sign-up and login functionality with password hashing.
+*  **CRUD Operations:** Create, read, update, and delete your to-do tasks effortlessly.
+*  **Smart Task Organization:** Tasks are automatically sorted by the nearest deadline and separated into "Active" and "Completed" lists.
+*  **Deadline Tracking:** Assign a specific date and time to each task to stay on track.
+*  **Responsive UI:** A sleek, dark-themed interface optimized for a seamless experience on both desktop and mobile devices.
 
-Technology Stack
-Frontend: React, Vite
+---
 
-Backend: Node.js, Express.js (via Vercel Serverless Functions)
+## Technology Stack
 
-Database: MySQL
+* **Frontend:** React, Vite
+* **Backend:** Node.js, Express.js (as Vercel Serverless Functions)
+* **Database:** MySQL
+* **Deployment:** Vercel
 
-Deployment: Vercel
+---
 
-Setup and Installation
-Follow these steps to get a local copy of the project running on your machine.
+## Getting Started
 
-1. Clone the repository
-git clone https://github.com/code-with-adhi/To-Do-Tracker.git
-cd To-Do-Tracker
+Follow these steps to get a local copy of the project up and running on your machine.
 
-2. Install dependencies
-npm install
+### Prerequisites
 
-4. Set up your database
-Create a MySQL database and a users table and a todos table with the schema we defined.
-Of course. Here are the SQL queries to set up your database tables.
+* [Node.js](https://nodejs.org/) (v18 or later recommended)
+* [MySQL](https://www.mysql.com/downloads/)
+* [Vercel CLI](https://vercel.com/docs/cli)
 
-You should run these commands in your MySQL client to create the tables that your application uses.
+### Installation
 
-Create the users table
-This query creates the users table to store all your user information. The email is set to UNIQUE to ensure each account is distinct, and the id is an auto-incrementing primary key.
+1.  **Clone the repository:**
+    ```sh
+    git clone https://github.com/code-with-adhi/To-Do-Tracker.git
+    cd To-Do-Tracker
+    ```
 
-CREATE TABLE users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    password_hash VARCHAR(255) NOT NULL,
-    username VARCHAR(255)
-);
-Of course. Here are the SQL queries to set up your database tables.
+2.  **Install dependencies:**
+    ```sh
+    npm install
+    ```
 
-You should run these commands in your MySQL client to create the tables that your application uses.
+3.  **Set up the database:**
+    Connect to your MySQL instance and run the following SQL queries to create the necessary tables.
 
-Create the users table
-This query creates the users table to store all your user information. The email is set to UNIQUE to ensure each account is distinct, and the id is an auto-incrementing primary key.
+    * **Create `users` table:**
+        ```sql
+        CREATE TABLE users (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            email VARCHAR(255) NOT NULL UNIQUE,
+            password_hash VARCHAR(255) NOT NULL,
+            username VARCHAR(255)
+        );
+        ```
 
-SQL
+    * **Create `todos` table:**
+        ```sql
+        CREATE TABLE todos (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            task VARCHAR(255) NOT NULL,
+            completed BOOLEAN DEFAULT FALSE,
+            deadline TIMESTAMP NULL,
+            user_id INT,
+            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+        );
+        ```
 
-CREATE TABLE users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    password_hash VARCHAR(255) NOT NULL,
-    username VARCHAR(255)
-);
+4.  **Configure Environment Variables:**
+    Create a `.env` file in the root of the project and add your database credentials.
+    ```env
+    MYSQL_HOST="your_mysql_host"
+    MYSQL_PORT="your_mysql_port"
+    MYSQL_USER="your_mysql_user"
+    MYSQL_PASSWORD="your_mysql_password"
+    MYSQL_DATABASE="your_database_name"
+    ```
 
-Create the todos table
-This query creates the todos table for your tasks. The user_id column is a foreign key that links each task to a specific user, which is a crucial part of the application's functionality.
+### Run Locally
 
-CREATE TABLE todos (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    task VARCHAR(255) NOT NULL,
-    completed BOOLEAN DEFAULT FALSE,
-    deadline TIMESTAMP NULL,
-    user_id INT,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-);
+Use the Vercel CLI to run the local development server, which hosts both the frontend and the serverless backend functions.
 
-Create a .env file in the root of your project with your database credentials.
-
-MYSQL_HOST="your_mysql_host"
-MYSQL_PORT="your_mysql_port"
-MYSQL_USER="your_mysql_user"
-MYSQL_PASSWORD="your_mysql_password"
-MYSQL_DATABASE="your_database_name"
-
-5. Run the application
-Use the Vercel CLI to run a local development server that hosts both the front-end and back-end.
-
+```sh
 npx vercel dev
-The application will be available at http://localhost:3000.
+```
 
+---
+**Note on Timezone**
 
-SPECIAL NOTE: 
-When we deploy it in localhost, the deadline we fix will be automatically converted to UTC time. So that while deploying in vercel it will provide the correct time according to the user's location. We don't have to explicitly type the UTC time. For those who are wondering why tie is stored differently in the database, that's the reason.
+The application is designed to automatically handle timezones. When you set a deadline, it is converted to UTC before being stored in the database. This ensures that when deployed,
+the deadline displays correctly according to each user's local timezone.
 
-Deployment
-This application is configured for deployment on Vercel. To deploy, simply push your code to your GitHub repository and ensure you have set the correct Environment Variables in your Vercel project dashboard.
+---
+
+**Deployment**
+This application is pre-configured for easy deployment on Vercel.
+
+* Push your code to a GitHub repository.
+
+* Import the repository into your Vercel dashboard.
+
+* Add the same environment variables from your .env file to the Vercel project settings.
+
+* Vercel will automatically build and deploy your application. Any subsequent pushes to the main branch will trigger a new deployment.
+
+---
